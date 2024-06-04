@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -15,6 +16,9 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.senac.boaviagem.Classes.Viagem
+import androidx.compose.material.Text as Text1
+import org.w3c.dom.Text as Text1
 
 
 class ViagemViewModel : ViewModel() {
@@ -31,13 +35,6 @@ class ViagemViewModel : ViewModel() {
 
 }
 
-data class Viagem(
-    val destino: String,
-    val tipoViagem: String,
-    val dataInicial: String,
-    val dataFinal: String,
-    val orcamento: Double
-)
 
 @Composable
 fun CadastroViagemContent(viewModel: ViagemViewModel = viewModel()) {
@@ -59,7 +56,7 @@ fun CadastroViagemContent(viewModel: ViagemViewModel = viewModel()) {
             .padding(16.dp),
         verticalArrangement = Arrangement.Center
     ) {
-        Text(
+        Text1(
             text = "Cadastro de Viagem",
             style = MaterialTheme.typography.h5,
             modifier = Modifier.padding(bottom = 16.dp)
@@ -67,7 +64,7 @@ fun CadastroViagemContent(viewModel: ViagemViewModel = viewModel()) {
         OutlinedTextField(
             value = destino,
             onValueChange = { destino = it },
-            label = { Text("Destino") },
+            label = { Text1("Destino") },
             singleLine = true,
             modifier = Modifier.fillMaxWidth()
         )
@@ -75,7 +72,7 @@ fun CadastroViagemContent(viewModel: ViagemViewModel = viewModel()) {
         OutlinedTextField(
             value = tipoViagem,
             onValueChange = { tipoViagem = it },
-            label = { Text("Tipo de viagem") },
+            label = { Text1("Tipo de viagem") },
             singleLine = true,
             modifier = Modifier.fillMaxWidth()
         )
@@ -83,7 +80,7 @@ fun CadastroViagemContent(viewModel: ViagemViewModel = viewModel()) {
         OutlinedTextField(
             value = dataInicial,
             onValueChange = { dataInicial = it },
-            label = { Text("Data inicial") },
+            label = { Text1("Data inicial") },
             singleLine = true,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             modifier = Modifier.fillMaxWidth()
@@ -92,7 +89,7 @@ fun CadastroViagemContent(viewModel: ViagemViewModel = viewModel()) {
         OutlinedTextField(
             value = dataFinal,
             onValueChange = { dataFinal = it },
-            label = { Text("Data final") },
+            label = { Text1("Data final") },
             singleLine = true,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             modifier = Modifier.fillMaxWidth()
@@ -101,7 +98,7 @@ fun CadastroViagemContent(viewModel: ViagemViewModel = viewModel()) {
         OutlinedTextField(
             value = orcamento,
             onValueChange = { orcamento = it },
-            label = { Text("Orçamento") },
+            label = { Text1("Orçamento") },
             singleLine = true,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             modifier = Modifier.fillMaxWidth()
@@ -113,37 +110,37 @@ fun CadastroViagemContent(viewModel: ViagemViewModel = viewModel()) {
             },
             modifier = Modifier.padding(bottom = 16.dp)
         ) {
-            Text("Salvar")
+            Text1("Salvar")
         }
         Button(
             onClick = {
                 isDialogOpen = true
             }
         ) {
-            Text("Consultar Viagens Salvas")
+            Text1("Consultar Viagens Salvas")
         }
     }
 
     if (isDialogOpen) {
         AlertDialog(
             onDismissRequest = { isDialogOpen = false },
-            title = { Text("Viagens Salvas") },
+            title = { Text1("Viagens Salvas") },
             text = {
                 Column {
                     viagensSalvas.forEach { viagem ->
-                        Text("--------------------------")
-                        Text("Destino: ${viagem.destino}")
-                        Text("Tipo de Viagem: ${viagem.tipoViagem}")
-                        Text("Data Inicial: ${viagem.dataInicial}")
-                        Text("Data Final: ${viagem.dataFinal}")
-                        Text("Orçamento: R$${viagem.orcamento}")
+                        Text1("--------------------------")
+                        Text1("Destino: ${viagem.destino}")
+                        Text1("Tipo de Viagem: ${viagem.tipoViagem}")
+                        Text1("Data Inicial: ${viagem.dataInicial}")
+                        Text1("Data Final: ${viagem.dataFinal}")
+                        Text1("Orçamento: R$${viagem.orcamento}")
                         Spacer(modifier = Modifier.height(8.dp))
                     }
                 }
             },
             confirmButton = {
                 Button(onClick = { isDialogOpen = false }) {
-                    Text("Fechar")
+                    Text1("Fechar")
                 }
             }
         )

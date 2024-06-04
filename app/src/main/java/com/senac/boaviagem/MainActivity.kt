@@ -121,6 +121,7 @@ fun LoginScreenContent(navController: NavController) {
     }
 }
 
+
 @Composable
 fun UserActivityScreen(username: String) {
     Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
