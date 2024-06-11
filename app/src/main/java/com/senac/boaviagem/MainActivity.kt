@@ -29,6 +29,9 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.senac.boaviagem.Cadastro.CadastroViagemContent
+import com.senac.boaviagem.Classes.ViagemViewModel
+import com.senac.boaviagem.Consulta.ConsultaViagem
 import com.senac.boaviagem.ui.TelaDeRegistro
 import com.senac.boaviagem.ui.theme.BoaViagemTheme
 
@@ -40,6 +43,7 @@ class MainActivity : ComponentActivity() {
             // Assuming you have a LinearLayout with the id 'mainLayout' in activity_main.xml
             BoaViagemTheme {
                 val navController = rememberNavController()
+
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
@@ -47,6 +51,7 @@ class MainActivity : ComponentActivity() {
                     NavHost(navController = navController, startDestination = "login") {
                         composable("login") { LoginScreen(navController) }
                         composable("register") { TelaDeRegistro(navController) }
+                        composable("consulta_viagem") { ConsultaViagem(ViagemViewModel()) }
                         composable("userActivity/{username}") { backStackEntry ->
                             val username = backStackEntry.arguments?.getString("username") ?: "Desconhecido"
                             UserActivityScreen(username)

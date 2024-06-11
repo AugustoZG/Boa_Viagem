@@ -16,28 +16,29 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.senac.boaviagem.Classes.Viagem
+import com.senac.boaviagem.Classes.ViagemViewModel
 import androidx.compose.material.Text as Text1
 import org.w3c.dom.Text as Text1
 
 
-class ViagemViewModel : ViewModel() {
-    private val viagensSalvas = mutableListOf<Viagem>()
-
-    fun salvarViagem(destino: String, tipoViagem: String, dataInicial: String, dataFinal: String, orcamento: Double) {
-        val viagem = Viagem(destino, tipoViagem, dataInicial, dataFinal, orcamento)
-        viagensSalvas.add(viagem)
-    }
-
-    fun getViagensSalvas(): List<Viagem> {
-        return viagensSalvas.toList()
-    }
-
-}
-
+//class ViagemViewModel : ViewModel() {
+//    private val viagensSalvas = mutableListOf<Viagem>()
+//
+//    fun salvarViagem(destino: String, tipoViagem: String, dataInicial: String, dataFinal: String, orcamento: Double) {
+//        val viagem = Viagem(destino, tipoViagem, dataInicial, dataFinal, orcamento)
+//        viagensSalvas.add(viagem)
+//    }
+//
+//    fun getViagensSalvas(): List<Viagem> {
+//        return viagensSalvas.toList()
+//    }
+//
+//}
 
 @Composable
-fun CadastroViagemContent(viewModel: ViagemViewModel = viewModel()) {
+fun CadastroViagemContent(navController: NavController, viewModel: ViagemViewModel) {
     val context = LocalContext.current
 
     var destino by remember { mutableStateOf("") }
@@ -46,7 +47,7 @@ fun CadastroViagemContent(viewModel: ViagemViewModel = viewModel()) {
     var dataFinal by remember { mutableStateOf("") }
     var orcamento by remember { mutableStateOf("") }
 
-    val viagensSalvas = viewModel.getViagensSalvas()
+    var viagensSalvas = viewModel.getViagensSalvas()
 
     var isDialogOpen by remember { mutableStateOf(false) }
 

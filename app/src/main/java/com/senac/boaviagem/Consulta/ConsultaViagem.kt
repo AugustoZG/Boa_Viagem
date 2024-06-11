@@ -26,37 +26,27 @@ import com.senac.boaviagem.Classes.Produto
 import com.senac.boaviagem.ui.theme.BoaViagemTheme
 import androidx.compose.material3.Card
 import androidx.compose.material3.Scaffold
+import androidx.lifecycle.ViewModel
+import com.senac.boaviagem.Classes.Viagem
+import com.senac.boaviagem.Classes.ViagemViewModel
 
 
-class ConsultaViagems : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            BoaViagemTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    ConsultaViagem()
-                }
-            }
-        }
-    }
-}
 @Composable
-fun ConsultaViagem() {
-    val list = listOf(
-        Produto(1,"caneta",10.0),
-        Produto(2,"tenis",2.0)
-    )
-    Scaffold {
-        Column (modifier = Modifier.padding(it)){
+fun ConsultaViagem(viewModel: ViagemViewModel) {
+//    val list = listOf(
+//        Produto(1,"caneta",10.0),
+//        Produto(2,"tenis",2.0)
+//    )
+    val list = viewModel.getViagensSalvas()
+    Scaffold() {
+        Column (modifier = Modifier.padding(it),){
             LazyColumn(){
-                item { Text(text = "Line 1") }
-                item { Text(text = "Line 2") }
-                items(5) {
-                    Text(text = "Line ${it}")
-                }
+                item { Text(text = "") }
+                item { Text(text = "") }
+//                item { Text(text = "Line 2") }
+//                items(5) {
+//                    Text(text = "Line ${it}")
+//                }
                 items(list){
                     ProdutoCard(it)
                 }
@@ -66,7 +56,7 @@ fun ConsultaViagem() {
     }
 }
 @Composable
-fun ProdutoCard(p: Produto){
+fun ProdutoCard(p: Viagem){
     val ctx = LocalContext.current
     Card(elevation = CardDefaults.cardElevation(
         defaultElevation = 4.dp
@@ -77,24 +67,16 @@ fun ProdutoCard(p: Produto){
             .fillMaxWidth()
             .clickable {
                 Toast
-                    .makeText(ctx, "Produto: ${p.nome}", Toast.LENGTH_SHORT)
+                    .makeText(ctx, "Viagem: ${p.destino}", Toast.LENGTH_SHORT)
                     .show()
             }
     ) {
         Column(modifier = Modifier.padding(6.dp)) {
-            Text(text = p.nome)
-            Text(text = "R$  ${p.preco}")
+            Text(text = p.destino)
+            Text(text = "R$  ${p.orcamento}")
 
         }
 
    }
 }
 
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewScaffold() {
-    BoaViagemTheme() {
-        ConsultaViagem()
-    }
-}

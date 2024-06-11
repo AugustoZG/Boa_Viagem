@@ -11,6 +11,7 @@ import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.AddCircle
+import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -27,6 +28,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.senac.boaviagem.Cadastro.CadastroViagemContent
+import com.senac.boaviagem.Classes.ViagemViewModel
+import com.senac.boaviagem.Consulta.ConsultaViagem
 import com.senac.boaviagem.ui.theme.BoaViagemTheme
 import com.senac.boaviagem.HomePage
 
@@ -69,10 +72,16 @@ fun MyApp() {
                     })
 
                 BottomNavigationItem(
-                    selected = isSelected(currentDestination, "register"),
-                    onClick = { navController.navigate("register") },
+                    selected = isSelected(currentDestination, "viagem"),
+                    onClick = { navController.navigate("viagem") },
                     icon = {
                         Icon(imageVector = Icons.Filled.AddCircle, contentDescription = "")
+                    })
+                BottomNavigationItem(
+                    selected = isSelected(currentDestination, "consulta_viagem"),
+                    onClick = { navController.navigate("consulta_viagem") },
+                    icon = {
+                        Icon(imageVector = Icons.Outlined.Edit, contentDescription = "")
                     })
 
                 BottomNavigationItem(
@@ -83,7 +92,9 @@ fun MyApp() {
                     })
             }
         }
-    ) {
+    )
+    {
+        val viewModel = ViagemViewModel()
         Column(modifier = Modifier.padding(it)) {
             NavHost(navController = navController, startDestination = "profile") {
                 composable("profile") {
@@ -92,8 +103,11 @@ fun MyApp() {
                 composable("about") {
                     Tela03()
                 }
-                composable("register") {
-                    CadastroViagemContent()
+                composable("consulta_viagem") {
+                    ConsultaViagem(viewModel)
+                }
+                composable("viagem") {
+                    CadastroViagemContent(navController, viewModel)
                 }
             }
         }
