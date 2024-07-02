@@ -13,11 +13,17 @@ import androidx.compose.runtime.State
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.senac.boaviagem.entities.Usuario
 import com.senac.boaviagem.viewmodels.UsuarioViewModel
 
 @Composable
-fun TelaDeRegistro(state: State<Usuario>, usuarioViewModel: UsuarioViewModel, ctx: Context) {
+fun TelaDeRegistro(
+    navController: NavHostController,
+    state: State<Usuario>,
+    usuarioViewModel: UsuarioViewModel,
+    ctx: Context
+) {
 //    val navControllerState = remember(navController) { navController.registerState()}
 
 

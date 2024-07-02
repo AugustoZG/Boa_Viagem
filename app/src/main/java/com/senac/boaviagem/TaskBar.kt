@@ -58,7 +58,6 @@ private fun isSelected(currentDestination: NavDestination?, route: String): Bool
 @Composable
 fun MyApp() {
     val navController = rememberNavController()
-
     Scaffold(
         bottomBar = {
             val navBackStackEntry = navController.currentBackStackEntryAsState()

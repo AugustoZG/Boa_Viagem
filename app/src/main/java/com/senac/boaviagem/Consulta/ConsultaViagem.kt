@@ -33,20 +33,12 @@ import com.senac.boaviagem.Classes.ViagemViewModel
 
 @Composable
 fun ConsultaViagem(viewModel: ViagemViewModel) {
-//    val list = listOf(
-//        Produto(1,"caneta",10.0),
-//        Produto(2,"tenis",2.0)
-//    )
     val list = viewModel.getViagensSalvas()
     Scaffold() {
         Column (modifier = Modifier.padding(it),){
             LazyColumn(){
                 item { Text(text = "") }
                 item { Text(text = "") }
-//                item { Text(text = "Line 2") }
-//                items(5) {
-//                    Text(text = "Line ${it}")
-//                }
                 items(list){
                     ProdutoCard(it)
                 }

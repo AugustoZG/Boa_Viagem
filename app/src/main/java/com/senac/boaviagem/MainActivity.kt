@@ -44,12 +44,13 @@ class MainActivity : ComponentActivity() {
 
 
                     NavHost(navController = navController, startDestination = "login") {
-                        composable("login") { LoginScreen(state, usuarioViewModel, ctx) }
-                        composable("register") { TelaDeRegistro(state, usuarioViewModel, ctx) }
+                        composable("login") { LoginScreen(navController,state, usuarioViewModel, ctx) }
+                        composable("register") { TelaDeRegistro(navController,state, usuarioViewModel, ctx) }
+                        composable("logado"){UserActivityScreen(state.value.usuario)}
                         composable("consulta_viagem") { ConsultaViagem(ViagemViewModel()) }
                         composable("userActivity/{username}") { backStackEntry ->
                             val username = backStackEntry.arguments?.getString("username") ?: "Desconhecido"
-                            UserActivityScreen(username)
+
                         }
                     }
                 }
@@ -57,70 +58,6 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
-//@Composable
-//fun LoginScreen(navController: State<Usuario>, usuarioViewModel: UsuarioViewModel, ctx: Context) {
-//    LoginScreenContent(navController)
-//}
-//
-//@Composable
-//fun LoginScreenContent(navController: State<Usuario>) {
-//    Column(
-//        modifier = Modifier
-//            .fillMaxHeight()
-//            .padding(horizontal = 20.dp),
-//        horizontalAlignment = Alignment.CenterHorizontally,
-//        verticalArrangement = Arrangement.Center
-//    ) {
-//        Image(
-//            painter = painterResource(id = R.drawable.viagem),
-//            contentDescription = "Logo do Login",
-//            modifier = Modifier.fillMaxWidth()
-//        )
-//
-//        Text("Logar", style = MaterialTheme.typography.headlineMedium)
-//
-//        val username = remember { mutableStateOf("") }
-//        val password = remember { mutableStateOf("") }
-//
-//        OutlinedTextField(
-//            value = username.value,
-//            onValueChange = { username.value = it },
-//            label = { Text("Usuário") },
-//            modifier = Modifier.padding(vertical = 8.dp)
-//        )
-//        OutlinedTextField(
-//            value = password.value,
-//            onValueChange = { password.value = it },
-//            label = { Text("Senha") },
-//            visualTransformation = PasswordVisualTransformation(),
-//            modifier = Modifier.padding(vertical = 8.dp)
-//        )
-//
-//        Button(
-//            onClick = {
-//                navController.navigate("userActivity/${username.value}")
-//            },
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .padding(vertical = 8.dp),
-//            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFA726)) // Laranja claro
-//        ) {
-//            Text("Logar")
-//        }
-//
-//        Button(
-//            onClick = { navController.navigate("register") },
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .padding(vertical = 8.dp),
-//            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF35007C))
-//        ) {
-//            Text("Registrar")
-//        }
-//    }
-//}
-
 
 @Composable
 fun UserActivityScreen(username: String) {
