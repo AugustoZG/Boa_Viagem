@@ -74,9 +74,7 @@ fun ProdutoCard(p: Viagem){
         Column(modifier = Modifier.padding(6.dp)) {
             Text(text = p.destino)
             Text(text = "R$  ${p.orcamento}")
-
         }
-
    }
 }
 
