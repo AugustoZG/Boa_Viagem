@@ -1,6 +1,7 @@
 package com.senac.boaviagem.Classes
 
 import androidx.lifecycle.ViewModel
+import java.time.LocalDate
 
 class ViagemViewModel : ViewModel() {
     private val viagensSalvas = mutableListOf<Viagem>()

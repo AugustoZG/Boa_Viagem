@@ -64,9 +64,9 @@ class UsuarioViewModel(val usuariodao: UsuarioDao): ViewModel() {
     }
     fun getAll() = usuariodao.getAll()
 
-    suspend fun login(email: String, senha: String) : Usuario? {
+    suspend fun login(usuario: String, senha: String) : Usuario? {
         val deferred: Deferred<Usuario?> = viewModelScope.async {
-            usuariodao.login(email, senha)
+            usuariodao.login(usuario, senha)
         }
         return deferred.await()
     }

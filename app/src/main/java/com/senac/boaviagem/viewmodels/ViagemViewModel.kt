@@ -54,6 +54,10 @@ class ViagemViewModel(val viagemdao: ViagemDao): ViewModel() {
             it.copy(id = id)
         }
     }
+
+    suspend fun delete(viagem: Viagem){
+        viagemdao.delete(viagem)
+    }
     private fun new() {
         _uiState.update {
             val copy = it.copy(

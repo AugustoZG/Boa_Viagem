@@ -20,8 +20,8 @@ interface UsuarioDao {
     suspend fun upsert(usuario: Usuario): Long
     @Query("select * from usuario p order by p.usuario")
     fun getAll(): Flow<List<Usuario>>
-    @Query("select * from usuario u where u.email = :email and u.senha = :senha")
-    suspend fun login(email: String, senha: String) : Usuario?
+    @Query("select * from usuario u where u.usuario = :usuario and u.senha = :senha")
+    suspend fun login(usuario: String, senha: String) : Usuario?
     @Query("select * from usuario p where p.id = :id")
     fun findById(id: Long) : Usuario?
     @Delete

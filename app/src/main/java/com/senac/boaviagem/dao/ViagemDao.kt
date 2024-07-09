@@ -22,6 +22,6 @@ interface ViagemDao {
     @Query("select * from viagem p where p.id = :id")
     fun findById(id: Long) : Viagem?
     @Delete
-    fun delete(viagem: Viagem)
+     suspend fun delete(viagem: Viagem)
 
 }

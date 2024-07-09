@@ -3,14 +3,17 @@ package com.senac.boaviagem.ui
 import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -24,9 +27,6 @@ fun TelaDeRegistro(
     usuarioViewModel: UsuarioViewModel,
     ctx: Context
 ) {
-//    val navControllerState = remember(navController) { navController.registerState()}
-
-
     Column(modifier = Modifier.padding(16.dp)) {
         Text("Registrar", style = MaterialTheme.typography.headlineMedium)
 
@@ -47,16 +47,27 @@ fun TelaDeRegistro(
             label = { Text("E-mail") }
         )
         Button(onClick = {
-               usuarioViewModel.save()
-               Toast.makeText(ctx,
-                    "Product saved",
-                    Toast.LENGTH_SHORT).show()
-            }) {
+            usuarioViewModel.save()
+            Toast.makeText(
+                ctx,
+                "Product saved",
+                Toast.LENGTH_SHORT
+            ).show()
+        },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp),
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFA726)))
+             {
                 Text(text = "Save")
             }
         Button(onClick = {
                 usuarioViewModel.saveNew()
-            }) {
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp),
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFA726))) {
                 Text(text = "Save/New")
             }
     }

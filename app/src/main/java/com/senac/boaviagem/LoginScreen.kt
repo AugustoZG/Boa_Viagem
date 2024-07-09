@@ -21,7 +21,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.senac.boaviagem.R
 import com.senac.boaviagem.entities.Usuario
 import com.senac.boaviagem.viewmodels.UsuarioViewModel
@@ -63,7 +62,7 @@ fun LoginScreen(
         Button(
             onClick = {
                 MainScope().launch {
-                val user = usuarioViewModel.login(email = state.value.email, senha = state.value.senha)
+                val user = usuarioViewModel.login(usuario = state.value.usuario, senha = state.value.senha)
                 if (user != null) {
                     navController.navigate("logado")
                     usuarioViewModel.updateUsuario(user.usuario)
