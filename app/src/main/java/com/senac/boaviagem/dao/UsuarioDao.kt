@@ -23,7 +23,7 @@ interface UsuarioDao {
     @Query("select * from usuario u where u.usuario = :usuario and u.senha = :senha")
     suspend fun login(usuario: String, senha: String) : Usuario?
     @Query("select * from usuario p where p.id = :id")
-    fun findById(id: Long) : Usuario?
+    suspend fun findById(id: Long) : Usuario?
     @Delete
     fun delete(usuario: Usuario)
 

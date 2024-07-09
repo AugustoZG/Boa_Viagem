@@ -51,7 +51,7 @@ class MainActivity : ComponentActivity() {
                         composable("login") { LoginScreen(navController,state, usuarioViewModel, ctx) }
                         composable("register") { TelaDeRegistro(navController,state, usuarioViewModel, ctx) }
                         composable("logado"){UserActivityScreen(state.value.usuario, state.value.email)}
-                        composable("consulta_viagem") { ConsultaViagem(viagemViewModel) }
+                        composable("consulta_viagem") { ConsultaViagem(viagemViewModel, navController) }
                         composable("userActivity/{username}") { backStackEntry ->
                             val username = backStackEntry.arguments?.getString("username") ?: "Desconhecido"
 

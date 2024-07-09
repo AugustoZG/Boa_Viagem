@@ -5,6 +5,8 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Place
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -12,8 +14,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.*
+
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.onFocusEvent
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -29,7 +32,6 @@ import java.text.SimpleDateFormat
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
-import androidx.compose.material.Text as Text1
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -44,8 +46,6 @@ fun CadastroViagemContent(navController: NavController, viewModel: com.senac.boa
     var dataFinal by remember { mutableStateOf("") }
     val datePickerStateFin = rememberDatePickerState()
     var orcamento by remember { mutableStateOf("") }
-
-
     val focusManager = LocalFocusManager.current
     var showDatePickerDialog by remember {
         mutableStateOf(false)
@@ -118,10 +118,8 @@ fun CadastroViagemContent(navController: NavController, viewModel: com.senac.boa
                 .fillMaxSize()
                 .padding(16.dp),
             verticalArrangement = Arrangement.Center
-
-        )
-        {
-            Text1(
+        ) {
+            Text(
                 text = "Cadastro de Viagem",
                 style = MaterialTheme.typography.headlineMedium.copy(
                     fontWeight = FontWeight.Bold,
@@ -129,12 +127,12 @@ fun CadastroViagemContent(navController: NavController, viewModel: com.senac.boa
                     fontSize = 30.sp
                 ),
                 modifier = Modifier.padding(bottom = 16.dp)
-
             )
             OutlinedTextField(
                 value = destino,
                 onValueChange = { destino = it },
-                label = { Text1("Destino") },
+                label = { Text("Destino") },
+                leadingIcon = { Icon(Icons.Filled.Place, contentDescription = null) },
                 singleLine = true,
                 modifier = Modifier.fillMaxWidth()
             )
@@ -142,7 +140,7 @@ fun CadastroViagemContent(navController: NavController, viewModel: com.senac.boa
             OutlinedTextField(
                 value = tipoViagem,
                 onValueChange = { tipoViagem = it },
-                label = { Text1("Tipo de viagem") },
+                label = { Text("Tipo de viagem") },
                 singleLine = true,
                 modifier = Modifier.fillMaxWidth()
             )
@@ -152,30 +150,35 @@ fun CadastroViagemContent(navController: NavController, viewModel: com.senac.boa
                 value = dataInicial,
                 onValueChange = { dataInicial = it },
                 label = { Text("Data Inicial") },
-                modifier = Modifier.onFocusEvent {
-                    if (it.isFocused) {
-                        showDatePickerDialog2 = true
-                        focusManager.clearFocus(force = true)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .onFocusChanged {
+                        if (it.isFocused) {
+                            showDatePickerDialog2 = true
+                            focusManager.clearFocus(force = true)
+                        }
                     }
-                },
             )
+            Spacer(modifier = Modifier.height(16.dp))
             OutlinedTextField(
                 readOnly = true,
                 value = dataFinal,
                 onValueChange = { dataFinal = it },
                 label = { Text("Data Final") },
-                modifier = Modifier.onFocusEvent {
-                    if (it.isFocused) {
-                        showDatePickerDialog = true
-                        focusManager.clearFocus(force = true)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .onFocusChanged {
+                        if (it.isFocused) {
+                            showDatePickerDialog = true
+                            focusManager.clearFocus(force = true)
+                        }
                     }
-                },
             )
             Spacer(modifier = Modifier.height(16.dp))
             OutlinedTextField(
                 value = orcamento,
                 onValueChange = { orcamento = it },
-                label = { Text1("Orçamento") },
+                label = { Text("Orçamento") },
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 modifier = Modifier.fillMaxWidth()
@@ -194,16 +197,21 @@ fun CadastroViagemContent(navController: NavController, viewModel: com.senac.boa
                         Toast.makeText(context, "Preencha todos os campos", Toast.LENGTH_SHORT).show()
                     }
                 },
-                modifier = Modifier.padding(bottom = 16.dp)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp),
             ) {
-                Text1("Salvar")
+                Text("Salvar")
             }
             Button(
                 onClick = {
                     navController.navigate("consulta_viagem")
-                }
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp),
             ) {
-                Text1("Consultar Viagens Salvas")
+                Text("Consultar Viagens Salvas")
             }
         }
     }

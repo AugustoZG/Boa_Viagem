@@ -2,40 +2,44 @@ package com.senac.boaviagem.Consulta
 
 import android.widget.Toast
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Text
-import androidx.compose.foundation.combinedClickable
-import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
-import androidx.compose.material3.Card
-import androidx.compose.material3.Scaffold
-import androidx.compose.runtime.collectAsState
-import com.senac.boaviagem.viewmodels.ViagemViewModel
-import com.senac.boaviagem.Consulta.ViagemCard as ViagemCard
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
 import androidx.compose.ui.platform.LocalContext
-
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.senac.boaviagem.R
 import com.senac.boaviagem.entities.Viagem
+import com.senac.boaviagem.viewmodels.ViagemViewModel
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ConsultaViagem(viewModel: ViagemViewModel) {
+fun ConsultaViagem(viewModel: ViagemViewModel, navController: NavHostController) {
     val viagem = viewModel.getAll().collectAsState(initial = emptyList())
     Scaffold(
         topBar = {
@@ -58,7 +62,7 @@ fun ConsultaViagem(viewModel: ViagemViewModel) {
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     items(items = viagem.value) { item ->
-                        ViagemCard(item, viewModel)
+                        ViagemCard(item, viewModel, navController)
                     }
                 }
             }
@@ -68,7 +72,7 @@ fun ConsultaViagem(viewModel: ViagemViewModel) {
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ViagemCard(viagem: Viagem, viewModel: ViagemViewModel) {
+fun ViagemCard(viagem: Viagem, viewModel: ViagemViewModel, navController: NavHostController) {
     val ctx = LocalContext.current
     Card(
         modifier = Modifier
@@ -76,6 +80,8 @@ fun ViagemCard(viagem: Viagem, viewModel: ViagemViewModel) {
             .padding(8.dp)
         .combinedClickable(
             onClick = {
+
+                navController.navigate("viagem")
                 Toast
                     .makeText(
                         ctx,

@@ -7,6 +7,8 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import com.senac.boaviagem.bd.AppDatabase
 import com.senac.boaviagem.dao.ViagemDao
 import com.senac.boaviagem.entities.Viagem
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -78,6 +80,13 @@ class ViagemViewModel(val viagemdao: ViagemDao): ViewModel() {
                 updateId(id)
             }
         }
+    }
+
+    suspend fun findById(id: Long): Viagem?{
+        val deferred: Deferred<Viagem?> = viewModelScope.async {
+            viagemdao.findById(id)
+        }
+        return deferred.await()
     }
     fun saveNew() {
         save()
